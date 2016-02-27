@@ -1,0 +1,46 @@
+# =============== #
+# Unity generated #
+# =============== #
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+#.unityproj
+*.booproj
+*.meta
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# /MorningRitual/[Ll]ibrary/
+# /MorningRitual/[Tt]emp/
+# /MorningRitual/[Oo]bj/
+# /MorningRitual/[Bb]uild/
+# /MorningRitual/[Bb]uilds/
+# /Assets/AssetStoreTools*
+
+# Unity3D generated meta files
+*.pidb.meta
+
+# Unity3D Generated File On Crash Reports
+sysinfo.txt
+
+# Builds
+*.apk
