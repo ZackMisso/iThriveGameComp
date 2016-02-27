@@ -1,5 +1,5 @@
 using UnityEngine;
-using SystemCollections;
+using System.Collections;
 
 public interface INote : IInteractable {
   void OnZoom();

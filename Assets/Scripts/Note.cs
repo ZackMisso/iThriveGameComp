@@ -1,5 +1,5 @@
 using UnityEngine;
-using SystemCollections;
+using System.Collections;
 
 public class Note : MonoBehaviour, INote {
 

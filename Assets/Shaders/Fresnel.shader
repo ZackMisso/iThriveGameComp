@@ -7,6 +7,7 @@ Properties
 	_SpecShininess ("Specular Shininess", Range(1.0,100.0)) = 2.0
 	_FresnelPower ("Fresnel Power", Range(0.0, 3.0)) = 1.4
 	_FresnelScale ("Frensel Scale", Range (0.0, 1.0)) = 1.0
+	_DiffuseInversion("Diffuse Inversion", Range (1.0, 5.0)) = 4.0
 	_FresnelColor ("Frensel Color", Color) = (1,1,1,1)
 }
 
@@ -46,6 +47,8 @@ SubShader
 			float _FresnelPower;
 			float _FresnelScale;
 			float4 _FresnelColor;
+
+			float _DiffuseInversion;
 			
 			v2f vert (appdata IN)
 			{
@@ -77,9 +80,10 @@ SubShader
 	            }
 
 	            float3 I = IN.posWorld - _WorldSpaceCameraPos.xyz;
+//				float3 I = _WorldSpaceCameraPos.xyz - IN.posWorld;
 				float refl = _FresnelScale * pow(1.0 + dot(normalize(I), normalDirection), _FresnelPower);
 
-	            float3 diffuseSpecular = diffuse + specular;
+	            float3 diffuseSpecular = (diffuse + specular) / _DiffuseInversion;
 
 				float4 finalColor = float4(diffuseSpecular,1) * texColor;
 
