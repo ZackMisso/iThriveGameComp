@@ -31,6 +31,8 @@ public class MouseLook : MonoBehaviour {
 
   void Update ()
   {
+    Vector3 forw = transform.TransformDirection(Vector3.forward)*5;
+    Debug.DrawRay(transform.position,forw,Color.green);
     if (axes == RotationAxes.MouseXAndY)
     {
       // Read the mouse input axis
