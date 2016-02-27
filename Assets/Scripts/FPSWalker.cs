@@ -9,7 +9,7 @@ public class FPSWalker : MonoBehaviour {
 
   public void Start() {
     rb = GetComponent<Rigidbody>();
-    charController = GetComponent<CharacterController>();
+//    charController = GetComponent<CharacterController>();
   }
 
   // Instructions to make move ::
@@ -24,12 +24,12 @@ public class FPSWalker : MonoBehaviour {
     Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
     moveDirection = transform.TransformDirection(moveDirection);
     moveDirection *= speed;
-    //if (rb) {
-    //  rb.velocity = new Vector3(moveDirection.x,0,moveDirection.z);
-    //}
-    //Vector3 move = new Vector3(moveDirection.x,0,moveDirection.z);
-    if(charController) {
-      charController.Move(moveDirection * Time.fixedDeltaTime);
+    if (rb) {
+      rb.velocity = new Vector3(moveDirection.x,0,moveDirection.z);
     }
+//    Vector3 move = new Vector3(moveDirection.x,0,moveDirection.z);
+//    if(charController) {
+//      charController.Move(moveDirection * Time.fixedDeltaTime);
+//    }
   }
 }
