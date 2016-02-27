@@ -29,12 +29,12 @@ obj/
 ehthumbs.db
 Thumbs.db
 
-# /MorningRitual/[Ll]ibrary/
-# /MorningRitual/[Tt]emp/
-# /MorningRitual/[Oo]bj/
-# /MorningRitual/[Bb]uild/
-# /MorningRitual/[Bb]uilds/
-# /Assets/AssetStoreTools*
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/Assets/AssetStoreTools*
 
 # Unity3D generated meta files
 *.pidb.meta
