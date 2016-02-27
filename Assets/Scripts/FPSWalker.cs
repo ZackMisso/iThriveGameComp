@@ -5,11 +5,11 @@ public class FPSWalker : MonoBehaviour {
   public float speed = 2.0f;
 
   private Rigidbody rb;
-  private CharacterController charController;
 
   public void Start() {
     rb = GetComponent<Rigidbody>();
 //    charController = GetComponent<CharacterController>();
+
   }
 
   // Instructions to make move ::
