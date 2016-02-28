@@ -14,9 +14,12 @@ public class PlayerInteract : MonoBehaviour {
 		{
 			if (hit.collider.tag == "Interactable")
 			{
+				// Think about caching the hit gameObject and the script so
+				// we don't have to fetch the interact script everytime...
 				Interactable interactionScript = hit.transform.gameObject.GetComponent<Interactable>();
-				interactionScript.Highlighted(highlight);
+				interactionScript.Highlighted(highlight);	// Pass the highlight material
 
+				// Call OnInteract on left click
 				if (Input.GetMouseButtonDown(0))
 				{
 					interactionScript.OnInteract();
@@ -24,6 +27,7 @@ public class PlayerInteract : MonoBehaviour {
 			}
 		}
 
+		// Draw the ray in the scene view
 		Debug.DrawRay(transform.position, forw * interactDist, Color.green);
 	}
 }

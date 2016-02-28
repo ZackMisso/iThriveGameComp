@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Interactable : MonoBehaviour, IInteractable {
 
-	private Material originalMaterial;
 	private Renderer rend;
+	private Material originalMaterial;
 
 	void Start()
 	{

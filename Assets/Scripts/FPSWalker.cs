@@ -15,31 +15,27 @@ public class FPSWalker : MonoBehaviour {
 		characterController = GetComponent<CharacterController>();
 		mouseLook = GetComponentInChildren<MouseLook>();
 		originalRotation = transform.localRotation;
-	 }
+	}
 
-	  // Instructions to make move ::
-	  // Add mesh collider to scenery
-	  // Add rigid body to camera
-	  // Add spherical collider to camera
-	  // Add Mouse Look and FPS Walker scripts
-	  // Adjust for scenery
+	void Update()
+	{
+		// Update the player's y rotation based on which direction
+		// camera is facing
+		Quaternion yRotation = mouseLook.UpdateRotation();
+		transform.localRotation = originalRotation * yRotation;
+	}
 
-	  void Update()
-	  {
-	  	 Quaternion yRotation = mouseLook.UpdateRotation();
-	  	 transform.localRotation = originalRotation * yRotation;
-	  }
-
-	  public void FixedUpdate() 
-	  {
-	    // Moves with arrow keys
-	    Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), -stickToGroundForce, Input.GetAxis("Vertical"));
+	public void FixedUpdate() 
+	{
+		// Moves with arrow keys
+		Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), -stickToGroundForce, Input.GetAxis("Vertical"));
+		// Move in terms on the player's local y rotation
 		moveDirection = transform.TransformDirection(transform.localRotation * moveDirection);
-	    moveDirection *= speed;
+		moveDirection *= speed;
 
 		if (characterController) 
 		{
 			characterController.Move(moveDirection * Time.fixedDeltaTime);
 		}
-	  }
+	}
 }

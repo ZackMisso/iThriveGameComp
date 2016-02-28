@@ -3,33 +3,48 @@ using System.Collections;
 
 public class Holdable : MonoBehaviour, IHoldable {
 
-  public void OnExamine() 
-  {
+	private Renderer rend;
+	private Material originalMaterial;
 
-  }
+	void Start()
+	{
+		rend = GetComponent<Renderer>();
+		originalMaterial = rend.material;
+	}
 
-  public void OnUnExamine() 
-  {
+	public void OnExamine() 
+	{
 
-  }
+	}
 
-  public void OnThrow() 
-  {
+	public void OnUnExamine() 
+	{
 
-  }
+	}
 
-  public void OnRotate(float x,float y) 
-  {
+	public void OnThrow() 
+	{
 
-  }
+	}
 
-  public void Highlighted(Material highlight) 
-  {
+	public void OnRotate(float x,float y) 
+	{
 
-  }
+	}
 
-  public void OnInteract() 
-  {
+	public void Highlighted(Material highlight) 
+	{
+		Debug.Log("Hightlight material");
+		rend.sharedMaterial = highlight;
+	}
 
-  }
+	public void OnInteract() 
+	{
+		print("Holding " + gameObject.name);
+	}
+
+	void Update() 
+	{
+		rend.material = originalMaterial;
+	}
 }

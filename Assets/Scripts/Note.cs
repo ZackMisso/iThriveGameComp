@@ -3,28 +3,43 @@ using System.Collections;
 
 public class Note : MonoBehaviour, INote {
 
-  public void OnZoom() 
-  {
+	private Renderer rend;
+	private Material originalMaterial;
 
-  }
+	void Start()
+	{
+		rend = GetComponent<Renderer>();
+		originalMaterial = rend.material;
+	}
 
-  public void OnExit() 
-  {
+	public void OnZoom() 
+	{
 
-  }
+	}
 
-  public void OnView() 
-  {
+	public void OnExit() 
+	{
 
-  }
+	}
 
-  public void Highlighted(Material highlight) 
-  {
+	public void OnView() 
+	{
 
-  }
+	}
 
-  public void OnInteract() 
-  {
+	public void Highlighted(Material highlight) 
+	{
+		Debug.Log("Hightlight material");
+		rend.sharedMaterial = highlight;
+	}
 
-  }
+	public void OnInteract() 
+	{
+		print("Reading " + gameObject.name);
+	}
+
+	void Update() 
+	{
+		rend.material = originalMaterial;
+	}
 }
