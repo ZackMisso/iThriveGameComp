@@ -1,4 +1,4 @@
-Shader ".ShaderTalk/Complete/Fresnel" {
+Shader "Fresnel" {
 Properties
 {
 	_MainTex ("Main Texture", 2D) = "white" {}
