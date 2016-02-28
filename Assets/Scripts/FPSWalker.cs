@@ -3,14 +3,15 @@ using System.Collections;
 
 public class FPSWalker : MonoBehaviour {
 	[SerializeField] private float speed = 2.0f;
-	[SerializeField] private float stickToGroundForce = 10.0f;
+	[SerializeField] private float stickToGroundForce = 10.0f; // Prevents player from falling through ground
 
 	private CharacterController characterController;
 	private MouseLook mouseLook;
 	private Quaternion originalRotation;
 
 
-	public void Start() {
+	public void Start() 
+	{
 		characterController = GetComponent<CharacterController>();
 		mouseLook = GetComponentInChildren<MouseLook>();
 		originalRotation = transform.localRotation;
@@ -29,14 +30,15 @@ public class FPSWalker : MonoBehaviour {
 	  	 transform.localRotation = originalRotation * yRotation;
 	  }
 
-	  public void FixedUpdate() {
+	  public void FixedUpdate() 
+	  {
 	    // Moves with arrow keys
 	    Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), -stickToGroundForce, Input.GetAxis("Vertical"));
 		moveDirection = transform.TransformDirection(transform.localRotation * moveDirection);
 	    moveDirection *= speed;
-	    if (characterController.isGrounded) print ("Grounded");
 
-		if (characterController) {
+		if (characterController) 
+		{
 			characterController.Move(moveDirection * Time.fixedDeltaTime);
 		}
 	  }
