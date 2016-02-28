@@ -29,10 +29,11 @@ public class MouseLook : MonoBehaviour {
   float rotationY = 0F;
   Quaternion originalRotation;
 
-  void Update ()
+  public Quaternion UpdateRotation ()
   {
-    Vector3 forw = transform.TransformDirection(Vector3.forward)*5;
+	Vector3 forw = transform.TransformDirection(Vector3.forward)*5;
     Debug.DrawRay(transform.position,forw,Color.green);
+
     if (axes == RotationAxes.MouseXAndY)
     {
       // Read the mouse input axis
@@ -43,6 +44,7 @@ public class MouseLook : MonoBehaviour {
       Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.up);
       Quaternion yQuaternion = Quaternion.AngleAxis (rotationY, -Vector3.right);
       transform.localRotation = originalRotation * xQuaternion * yQuaternion;
+      return xQuaternion;
     }
     else if (axes == RotationAxes.MouseX)
     {
@@ -50,6 +52,7 @@ public class MouseLook : MonoBehaviour {
       rotationX = ClampAngle (rotationX, minimumX, maximumX);
       Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.up);
       transform.localRotation = originalRotation * xQuaternion;
+	  return xQuaternion;
     }
     else
     {
@@ -57,6 +60,7 @@ public class MouseLook : MonoBehaviour {
       rotationY = ClampAngle (rotationY, minimumY, maximumY);
       Quaternion yQuaternion = Quaternion.AngleAxis (-rotationY, Vector3.right);
       transform.localRotation = originalRotation * yQuaternion;
+	  return Quaternion.identity;
     }
   }
 
