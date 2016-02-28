@@ -9,18 +9,21 @@ public class PlayerInteract : MonoBehaviour {
 	{
 		Vector3 forw = transform.TransformDirection(Vector3.forward);
 
-    	Debug.DrawRay(transform.position, forw * interactDist, Color.green);
-
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, forw, out hit, interactDist))
 		{
-			
 			if (hit.collider.tag == "Interactable")
 			{
-				Debug.Log("Hit interactable object");
 				Interactable interactionScript = hit.transform.gameObject.GetComponent<Interactable>();
 				interactionScript.Highlighted(highlight);
+
+				if (Input.GetMouseButtonDown(0))
+				{
+					interactionScript.OnInteract();
+				}
 			}
 		}
+
+		Debug.DrawRay(transform.position, forw * interactDist, Color.green);
 	}
 }

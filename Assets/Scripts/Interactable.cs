@@ -20,7 +20,7 @@ public class Interactable : MonoBehaviour, IInteractable {
 
 	public void OnInteract() 
 	{
-
+		print("Interacting with " + gameObject.name);
 	}
 
 	void Update() 
