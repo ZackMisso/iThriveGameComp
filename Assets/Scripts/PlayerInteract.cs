@@ -5,12 +5,16 @@ public class PlayerInteract : MonoBehaviour {
 	[SerializeField] private Material highlight;
 	[SerializeField] private float interactDist = 5.0f;
 
+	private bool holdingObject = false;
+	private Holdable objectHeldScript;
+
 	public void Update() 
 	{
 		Vector3 forw = transform.TransformDirection(Vector3.forward);
 
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, forw, out hit, interactDist))
+		// Only cast a ray if an object is not being held
+		if (!holdingObject && Physics.Raycast(transform.position, forw, out hit, interactDist))
 		{
 			if (hit.collider.tag == "Interactable")
 			{
@@ -25,6 +29,34 @@ public class PlayerInteract : MonoBehaviour {
 					interactionScript.OnInteract();
 				}
 			}
+			else if (hit.collider.tag == "Holdable")
+			{
+				// Think about caching the hit gameObject and the script so
+				// we don't have to fetch the interact script everytime...
+				Holdable holdScript = hit.transform.gameObject.GetComponent<Holdable>();
+				holdScript.Highlighted(highlight);	// Pass the highlight material
+
+				// Call OnInteract on left click
+				if (Input.GetMouseButtonDown(0))
+				{
+					// Pickup the object
+					holdScript.OnInteract();
+
+					// Set hold state to true
+					holdingObject = true;
+					objectHeldScript = holdScript;
+				}
+			}
+		}
+		// If an item is being held and there is a left mouse click, drop the item
+		else if (holdingObject && Input.GetMouseButtonDown(0))
+		{
+			// Drop the object
+			objectHeldScript.OnThrow();
+
+			// Set hold state to false
+			holdingObject = false;
+			objectHeldScript = null;
 		}
 
 		// Draw the ray in the scene view
