@@ -16,7 +16,6 @@ obj/
 *.user
 #.unityproj
 *.booproj
-*.meta
 
 # ============ #
 # OS generated #
@@ -34,7 +33,7 @@ Thumbs.db
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
-/Assets/AssetStoreTools*
+#/Assets/AssetStoreTools*
 
 # Unity3D generated meta files
 *.pidb.meta
