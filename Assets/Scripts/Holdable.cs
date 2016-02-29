@@ -11,6 +11,8 @@ public class Holdable : MonoBehaviour, IHoldable {
 
 	private GameObject player;
 	[SerializeField] private Vector3 holdPosition = new Vector3(0.5f, -0.4f, 0.6f);
+	[SerializeField] private Vector3 examinePosition = new Vector3(0.0f,0.0f,1.0f);
+	private Quaternion holdOrientation;
 
 	void Start()
 	{
@@ -27,17 +29,21 @@ public class Holdable : MonoBehaviour, IHoldable {
 		player = GameObject.FindGameObjectWithTag("Player");
 	}
 
-	public void OnExamine() 
+	public void OnExamine()
 	{
-
+		Debug.Log("In On Examine");
+		transform.localPosition = examinePosition;
+		holdOrientation = transform.localRotation;
 	}
 
-	public void OnUnExamine() 
+	public void OnUnExamine()
 	{
-
+		Debug.Log("In Un Examine");
+		transform.localPosition = holdPosition;
+		transform.localRotation = holdOrientation;
 	}
 
-	public void OnThrow() 
+	public void OnThrow()
 	{
 		Debug.Log("Throwing " + gameObject.name);
 
@@ -51,14 +57,14 @@ public class Holdable : MonoBehaviour, IHoldable {
 
 	}
 
-	public void Highlighted(Material highlight) 
+	public void Highlighted(Material highlight)
 	{
 		Debug.Log("Hightlight material");
 
 		rend.sharedMaterial = highlight;
 	}
 
-	public void OnInteract() 
+	public void OnInteract()
 	{
 		print("Holding " + gameObject.name);
 		transform.SetParent(player.transform);
@@ -66,7 +72,7 @@ public class Holdable : MonoBehaviour, IHoldable {
 		rb.isKinematic = true;
 	}
 
-	void Update() 
+	void Update()
 	{
 		// If it is not being highlighted the object should use it's default material
 		rend.material = originalMaterial;

@@ -6,9 +6,10 @@ public class PlayerInteract : MonoBehaviour {
 	[SerializeField] private float interactDist = 5.0f;
 
 	private bool holdingObject = false;
+	private bool examiningObject = false;
 	private Holdable objectHeldScript;
 
-	public void Update() 
+	public void Update()
 	{
 		Vector3 forw = transform.TransformDirection(Vector3.forward);
 
@@ -51,12 +52,40 @@ public class PlayerInteract : MonoBehaviour {
 		// If an item is being held and there is a left mouse click, drop the item
 		else if (holdingObject && Input.GetMouseButtonDown(0))
 		{
-			// Drop the object
-			objectHeldScript.OnThrow();
+			// If the Object is being examined stop examining it
+			if(examiningObject)
+			{
+				objectHeldScript.OnUnExamine();
+				examiningObject = false;
+			}
+			else
+			{
+				// Drop the object
+				objectHeldScript.OnThrow();
 
-			// Set hold state to false
-			holdingObject = false;
-			objectHeldScript = null;
+				// Set hold state to false
+				holdingObject = false;
+				objectHeldScript = null;
+			}
+		}
+
+		// If an item is being held and there is a right mouse click, examin the item
+		else if (holdingObject && Input.GetMouseButtonDown(1))
+		{
+			// If the Object is being examined stop examining it
+			if(examiningObject)
+			{
+				objectHeldScript.OnUnExamine();
+				examiningObject = false;
+			}
+			else
+			{
+				// Examine the object
+				objectHeldScript.OnExamine();
+
+				// Set examine state to true
+				examiningObject = true;
+			}
 		}
 
 		// Draw the ray in the scene view
