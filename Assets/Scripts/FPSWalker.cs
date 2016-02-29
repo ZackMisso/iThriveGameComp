@@ -32,15 +32,18 @@ public class FPSWalker : MonoBehaviour {
 
 	public void FixedUpdate()
 	{
-		// Moves with arrow keys
-		Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), -stickToGroundForce, Input.GetAxis("Vertical"));
-		// Move in terms on the player's local y rotation
-		moveDirection = transform.TransformDirection(transform.localRotation * moveDirection);
-		moveDirection *= speed;
-
-		if (characterController)
+		if(playerInteract.CanMove())
 		{
-			characterController.Move(moveDirection * Time.fixedDeltaTime);
+			// Moves with arrow keys
+			Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), -stickToGroundForce, Input.GetAxis("Vertical"));
+			// Move in terms on the player's local y rotation
+			moveDirection = transform.TransformDirection(transform.localRotation * moveDirection);
+			moveDirection *= speed;
+
+			if (characterController)
+			{
+				characterController.Move(moveDirection * Time.fixedDeltaTime);
+			}
 		}
 	}
 }
