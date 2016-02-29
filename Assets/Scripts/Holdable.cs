@@ -7,7 +7,7 @@ public class Holdable : MonoBehaviour, IHoldable {
 	private Material originalMaterial;
 
 	private Rigidbody rb;
-
+	private MouseLook ml;
 
 	private GameObject player;
 	[SerializeField] private Vector3 holdPosition = new Vector3(0.5f, -0.4f, 0.6f);
@@ -25,8 +25,15 @@ public class Holdable : MonoBehaviour, IHoldable {
 		originalMaterial = rend.material;
 		// Get the rigidbody for setting kinematic state
 		rb = GetComponent<Rigidbody>();
+		// Get the Mouse Look for when the object is being examined
+		ml = GetComponent<MouseLook>();
 
 		player = GameObject.FindGameObjectWithTag("Player");
+	}
+
+	public void OnExamineRotate()
+	{
+		ml.UpdateRotation();
 	}
 
 	public void OnExamine()

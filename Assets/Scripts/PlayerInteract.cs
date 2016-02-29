@@ -8,10 +8,32 @@ public class PlayerInteract : MonoBehaviour {
 	private bool holdingObject = false;
 	private bool examiningObject = false;
 	private Holdable objectHeldScript;
+	private MouseLook mouseLookScript;
+
+	public void Start()
+	{
+		mouseLookScript = GetComponent<MouseLook>();
+		// Error Checking
+		if(!mouseLookScript)
+		{
+			Debug.Log("ERROR :: THERE NEEDS TO BE A MOUSEMOVE SCRIPT");
+		}
+	}
+
+	public bool CanMove()
+	{
+		return !examiningObject;
+	}
 
 	public void Update()
 	{
 		Vector3 forw = transform.TransformDirection(Vector3.forward);
+
+		// Update Orientation of the Object if Examining
+		if(examiningObject)
+		{
+			objectHeldScript.OnExamineRotate();
+		}
 
 		RaycastHit hit;
 		// Only cast a ray if an object is not being held
@@ -82,7 +104,6 @@ public class PlayerInteract : MonoBehaviour {
 			{
 				// Examine the object
 				objectHeldScript.OnExamine();
-
 				// Set examine state to true
 				examiningObject = true;
 			}

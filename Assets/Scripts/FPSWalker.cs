@@ -7,13 +7,15 @@ public class FPSWalker : MonoBehaviour {
 
 	private CharacterController characterController;
 	private MouseLook mouseLook;
+	private PlayerInteract playerInteract;
 	private Quaternion originalRotation;
+	private bool canMove = true;
 
-
-	public void Start() 
+	public void Start()
 	{
 		characterController = GetComponent<CharacterController>();
 		mouseLook = GetComponentInChildren<MouseLook>();
+		playerInteract = GetComponentInChildren<PlayerInteract>();
 		originalRotation = transform.localRotation;
 	}
 
@@ -21,11 +23,14 @@ public class FPSWalker : MonoBehaviour {
 	{
 		// Update the player's y rotation based on which direction
 		// camera is facing
-		Quaternion yRotation = mouseLook.UpdateRotation();
-		transform.localRotation = originalRotation * yRotation;
+		if(playerInteract.CanMove())
+		{
+			Quaternion yRotation = mouseLook.UpdateRotation();
+			transform.localRotation = originalRotation * yRotation;
+		}
 	}
 
-	public void FixedUpdate() 
+	public void FixedUpdate()
 	{
 		// Moves with arrow keys
 		Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), -stickToGroundForce, Input.GetAxis("Vertical"));
@@ -33,7 +38,7 @@ public class FPSWalker : MonoBehaviour {
 		moveDirection = transform.TransformDirection(transform.localRotation * moveDirection);
 		moveDirection *= speed;
 
-		if (characterController) 
+		if (characterController)
 		{
 			characterController.Move(moveDirection * Time.fixedDeltaTime);
 		}
