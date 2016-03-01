@@ -12,17 +12,11 @@ public class PlayerInteract : MonoBehaviour {
 	private Interactable interactionScript;
 	private Holdable holdScript;
 
-	private Holdable objectHeldScript;
 	private MouseLook mouseLookScript;
 
 	public void Start()
 	{
 		mouseLookScript = GetComponent<MouseLook>();
-		// Error Checking
-		if (!mouseLookScript)
-		{
-			Debug.Log("ERROR :: THERE NEEDS TO BE A MOUSEMOVE SCRIPT");
-		}
 	}
 
 	public bool CanMove()
@@ -34,25 +28,32 @@ public class PlayerInteract : MonoBehaviour {
 	{
 		Vector3 forw = transform.TransformDirection(Vector3.forward);
 
-		// Update Orientation of the Object if Examining
 		if (examiningObject)
 		{
-			objectHeldScript.OnExamineRotate();
+			// Update Orientation of the Object if Examining
+			holdScript.OnExamineRotate();
+			// If the Object is being examined stop examining it when input is recieved
+			if(Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
+			{
+				holdScript.OnUnExamine();
+				examiningObject = false;
+			}
+			return; // avoid unnecessary logic if examining object
 		}
 
 		if (highlightedObject && interactionScript)
 		{
-			highlightedObject = false;
 			interactionScript.OnUnHighlight();
 			interactionScript = null;
 		}
 
 		if (highlightedObject && holdScript)
 		{
-			highlightedObject = false;
 			holdScript.OnUnHighlight();
-			holdScript = null;
+			//holdScript = null; // Don't need this for our current logic
 		}
+
+		highlightedObject = false;
 
 		RaycastHit hit;
 		// Only cast a ray if an object is not being held
@@ -85,49 +86,27 @@ public class PlayerInteract : MonoBehaviour {
 				{
 					// Pickup the object
 					holdScript.OnInteract();
-
 					// Set hold state to true
 					holdingObject = true;
-					objectHeldScript = holdScript;
 				}
 			}
 		}
 		// If an item is being held and there is a left mouse click, drop the item
 		else if (holdingObject && Input.GetMouseButtonDown(0))
 		{
-			// If the Object is being examined stop examining it
-			if (examiningObject)
-			{
-				objectHeldScript.OnUnExamine();
-				examiningObject = false;
-			}
-			else
-			{
-				// Drop the object
-				objectHeldScript.OnThrow();
-
-				// Set hold state to false
-				holdingObject = false;
-				objectHeldScript = null;
-			}
+			// Drop the object
+			holdScript.OnThrow();
+			// Set hold state to false
+			holdingObject = false;
 		}
 
 		// If an item is being held and there is a right mouse click, examin the item
 		else if (holdingObject && Input.GetMouseButtonDown(1))
 		{
-			// If the Object is being examined stop examining it
-			if (examiningObject)
-			{
-				objectHeldScript.OnUnExamine();
-				examiningObject = false;
-			}
-			else
-			{
-				// Examine the object
-				objectHeldScript.OnExamine();
-				// Set examine state to true
-				examiningObject = true;
-			}
+			// Examine the object
+			holdScript.OnExamine();
+			// Set examine state to true
+			examiningObject = true;
 		}
 
 		// Draw the ray in the scene view

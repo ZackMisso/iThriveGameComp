@@ -60,11 +60,6 @@ public class Holdable : MonoBehaviour, IHoldable {
 		rb.isKinematic = false;
 	}
 
-	public void OnRotate(float x,float y)
-	{
-		
-	}
-
 	public void Highlighted(Material highlight)
 	{
 		Debug.Log("Hightlight material");
@@ -86,10 +81,5 @@ public class Holdable : MonoBehaviour, IHoldable {
 		transform.SetParent(player.transform);
 		transform.localPosition = holdPosition;
 		rb.isKinematic = true;
-	}
-
-	void Update()
-	{
-		
 	}
 }
