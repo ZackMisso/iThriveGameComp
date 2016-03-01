@@ -54,6 +54,7 @@ public class Holdable : MonoBehaviour, IHoldable {
 	{
 		Debug.Log("Throwing " + gameObject.name);
 
+		// Drop the item 1 unit in front of player
 		transform.localPosition = new Vector3(0.0f, 0.0f, 1.0f);
 		transform.SetParent(null);
 		rb.isKinematic = false;
@@ -61,14 +62,22 @@ public class Holdable : MonoBehaviour, IHoldable {
 
 	public void OnRotate(float x,float y)
 	{
-
+		
 	}
 
 	public void Highlighted(Material highlight)
 	{
 		Debug.Log("Hightlight material");
+		print ("Shader used for holdable " + highlight.shader);
+		rend.material = highlight;
+		print ("Material " + rend.sharedMaterial);
+	}
 
-		rend.sharedMaterial = highlight;
+	public void OnUnHighlight()
+	{
+		// If it is not being highlighted the object should use it's default material
+		print ("Unhighlight");
+		rend.material = originalMaterial;
 	}
 
 	public void OnInteract()
@@ -81,7 +90,6 @@ public class Holdable : MonoBehaviour, IHoldable {
 
 	void Update()
 	{
-		// If it is not being highlighted the object should use it's default material
-		rend.material = originalMaterial;
+		
 	}
 }

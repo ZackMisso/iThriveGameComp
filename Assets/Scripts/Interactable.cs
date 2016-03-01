@@ -15,7 +15,15 @@ public class Interactable : MonoBehaviour, IInteractable {
 	public void Highlighted(Material highlight) 
 	{
 		Debug.Log("Hightlight material");
+		print ("Shader used for iteractable " + highlight.shader);
 		rend.sharedMaterial = highlight;
+	}
+
+	public void OnUnHighlight()
+	{
+		// If it is not being highlighted the object should use it's default material
+		print ("Unhighlight");
+		rend.sharedMaterial = originalMaterial;
 	}
 
 	public void OnInteract() 
@@ -25,6 +33,6 @@ public class Interactable : MonoBehaviour, IInteractable {
 
 	void Update() 
 	{
-		rend.material = originalMaterial;
+//		rend.material = originalMaterial;
 	}
 }
