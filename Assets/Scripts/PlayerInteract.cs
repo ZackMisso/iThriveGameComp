@@ -7,10 +7,12 @@ public class PlayerInteract : MonoBehaviour {
 
 	private bool holdingObject = false;
 	private bool examiningObject = false;
+	private bool readingNote = false;
 	private bool highlightedObject = false;
 
 	private Interactable interactionScript;
 	private Holdable holdScript;
+	private Note noteScript;
 
 	private MouseLook mouseLookScript;
 
@@ -41,6 +43,7 @@ public class PlayerInteract : MonoBehaviour {
 			return; // avoid unnecessary logic if examining object
 		}
 
+		// unhighlight all objects
 		if (highlightedObject && interactionScript)
 		{
 			interactionScript.OnUnHighlight();
@@ -50,14 +53,20 @@ public class PlayerInteract : MonoBehaviour {
 		if (highlightedObject && holdScript)
 		{
 			holdScript.OnUnHighlight();
-			//holdScript = null; // Don't need this for our current logic
+			holdScript = null;
+		}
+
+		if (highlightedObject && noteScript)
+		{
+			noteScript.OnUnHighlight();
+			noteScript = null;
 		}
 
 		highlightedObject = false;
 
 		RaycastHit hit;
 		// Only cast a ray if an object is not being held
-		if (!holdingObject && Physics.Raycast(transform.position, forw, out hit, interactDist))
+		if (!readingNote && !holdingObject && Physics.Raycast(transform.position, forw, out hit, interactDist))
 		{
 			if (hit.collider.tag == "Interactable")
 			{
@@ -90,6 +99,23 @@ public class PlayerInteract : MonoBehaviour {
 					holdingObject = true;
 				}
 			}
+			else if (hit.collider.tag == "Note")
+			{
+					// Also consider caching hit gameObject
+					noteScript = hit.transform.gameObject.GetComponent<Note>();
+					// Pass the highlight material
+					noteScript.Highlighted(highlight);
+					highlightedObject = true;
+
+					// Call OnInteract on left click
+					if (Input.GetMouseButtonDown(0))
+					{
+						// Read the Note
+						noteScript.OnInteract();
+						// Set read state to true
+						readingNote = true;
+					}
+			}
 		}
 		// If an item is being held and there is a left mouse click, drop the item
 		else if (holdingObject && Input.GetMouseButtonDown(0))
@@ -107,6 +133,12 @@ public class PlayerInteract : MonoBehaviour {
 			holdScript.OnExamine();
 			// Set examine state to true
 			examiningObject = true;
+		}
+
+		// Capture Movement if reading note
+		else if (readingNote)
+		{
+			// to be implemented
 		}
 
 		// Draw the ray in the scene view
