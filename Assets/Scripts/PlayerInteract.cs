@@ -7,22 +7,18 @@ public class PlayerInteract : MonoBehaviour {
 
 	private bool holdingObject = false;
 	private bool examiningObject = false;
+	private bool readingNote = false;
 	private bool highlightedObject = false;
 
 	private Interactable interactionScript;
 	private Holdable holdScript;
+	private Note noteScript;
 
-	private Holdable objectHeldScript;
 	private MouseLook mouseLookScript;
 
 	public void Start()
 	{
 		mouseLookScript = GetComponent<MouseLook>();
-		// Error Checking
-		if (!mouseLookScript)
-		{
-			Debug.Log("ERROR :: THERE NEEDS TO BE A MOUSEMOVE SCRIPT");
-		}
 	}
 
 	public bool CanMove()
@@ -34,29 +30,43 @@ public class PlayerInteract : MonoBehaviour {
 	{
 		Vector3 forw = transform.TransformDirection(Vector3.forward);
 
-		// Update Orientation of the Object if Examining
 		if (examiningObject)
 		{
-			objectHeldScript.OnExamineRotate();
+			// Update Orientation of the Object if Examining
+			holdScript.OnExamineRotate();
+			// If the Object is being examined stop examining it when input is recieved
+			if(Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
+			{
+				holdScript.OnUnExamine();
+				examiningObject = false;
+			}
+			return; // avoid unnecessary logic if examining object
 		}
 
+		// unhighlight all objects
 		if (highlightedObject && interactionScript)
 		{
-			highlightedObject = false;
 			interactionScript.OnUnHighlight();
 			interactionScript = null;
 		}
 
-		if (highlightedObject && holdScript)
+		if (highlightedObject && holdScript && !holdingObject)
 		{
-			highlightedObject = false;
 			holdScript.OnUnHighlight();
 			holdScript = null;
 		}
 
+		if (highlightedObject && noteScript)
+		{
+			noteScript.OnUnHighlight();
+			noteScript = null;
+		}
+
+		highlightedObject = false;
+
 		RaycastHit hit;
 		// Only cast a ray if an object is not being held
-		if (!holdingObject && Physics.Raycast(transform.position, forw, out hit, interactDist))
+		if (!readingNote && !holdingObject && Physics.Raycast(transform.position, forw, out hit, interactDist))
 		{
 			if (hit.collider.tag == "Interactable")
 			{
@@ -85,49 +95,50 @@ public class PlayerInteract : MonoBehaviour {
 				{
 					// Pickup the object
 					holdScript.OnInteract();
-
 					// Set hold state to true
 					holdingObject = true;
-					objectHeldScript = holdScript;
 				}
+			}
+			else if (hit.collider.tag == "Note")
+			{
+					// Also consider caching hit gameObject
+					noteScript = hit.transform.gameObject.GetComponent<Note>();
+					// Pass the highlight material
+					noteScript.Highlighted(highlight);
+					highlightedObject = true;
+
+					// Call OnInteract on left click
+					if (Input.GetMouseButtonDown(0))
+					{
+						// Read the Note
+						noteScript.OnInteract();
+						// Set read state to true
+						readingNote = true;
+					}
 			}
 		}
 		// If an item is being held and there is a left mouse click, drop the item
 		else if (holdingObject && Input.GetMouseButtonDown(0))
 		{
-			// If the Object is being examined stop examining it
-			if (examiningObject)
-			{
-				objectHeldScript.OnUnExamine();
-				examiningObject = false;
-			}
-			else
-			{
-				// Drop the object
-				objectHeldScript.OnThrow();
-
-				// Set hold state to false
-				holdingObject = false;
-				objectHeldScript = null;
-			}
+			// Drop the object
+			holdScript.OnThrow();
+			// Set hold state to false
+			holdingObject = false;
 		}
 
 		// If an item is being held and there is a right mouse click, examin the item
 		else if (holdingObject && Input.GetMouseButtonDown(1))
 		{
-			// If the Object is being examined stop examining it
-			if (examiningObject)
-			{
-				objectHeldScript.OnUnExamine();
-				examiningObject = false;
-			}
-			else
-			{
-				// Examine the object
-				objectHeldScript.OnExamine();
-				// Set examine state to true
-				examiningObject = true;
-			}
+			// Examine the object
+			holdScript.OnExamine();
+			// Set examine state to true
+			examiningObject = true;
+		}
+
+		// Capture Movement if reading note
+		else if (readingNote)
+		{
+			// to be implemented
 		}
 
 		// Draw the ray in the scene view

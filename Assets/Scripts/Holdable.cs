@@ -60,11 +60,6 @@ public class Holdable : MonoBehaviour, IHoldable {
 		rb.isKinematic = false;
 	}
 
-	public void OnRotate(float x,float y)
-	{
-		
-	}
-
 	public void Highlighted(Material highlight)
 	{
 		Debug.Log("Hightlight material");
@@ -77,7 +72,7 @@ public class Holdable : MonoBehaviour, IHoldable {
 	{
 		// If it is not being highlighted the object should use it's default material
 		print ("Unhighlight");
-//		rend.material = originalMaterial;
+		rend.material = originalMaterial;
 	}
 
 	public void OnInteract()
