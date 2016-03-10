@@ -70,14 +70,14 @@ public class Holdable : MonoBehaviour, IHoldable {
 		Debug.Log("Hightlight material");
 		print ("Shader used for holdable " + highlight.shader);
 		rend.material = highlight;
-		print ("Material " + rend.sharedMaterial);
+		print ("Material " + rend.material);
 	}
 
 	public void OnUnHighlight()
 	{
 		// If it is not being highlighted the object should use it's default material
 		print ("Unhighlight");
-		rend.material = originalMaterial;
+//		rend.material = originalMaterial;
 	}
 
 	public void OnInteract()
@@ -86,10 +86,5 @@ public class Holdable : MonoBehaviour, IHoldable {
 		transform.SetParent(player.transform);
 		transform.localPosition = holdPosition;
 		rb.isKinematic = true;
-	}
-
-	void Update()
-	{
-		
 	}
 }

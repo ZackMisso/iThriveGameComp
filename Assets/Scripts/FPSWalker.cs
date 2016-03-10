@@ -9,7 +9,9 @@ public class FPSWalker : MonoBehaviour {
 	private MouseLook mouseLook;
 	private PlayerInteract playerInteract;
 	private Quaternion originalRotation;
-	private bool canMove = true;
+//	private bool canMove = true;
+
+	private PauseManager pauseManager;
 
 	public void Start()
 	{
@@ -17,13 +19,15 @@ public class FPSWalker : MonoBehaviour {
 		mouseLook = GetComponentInChildren<MouseLook>();
 		playerInteract = GetComponentInChildren<PlayerInteract>();
 		originalRotation = transform.localRotation;
+
+		pauseManager = GameObject.FindObjectOfType<PauseManager>();
 	}
 
 	void Update()
 	{
 		// Update the player's y rotation based on which direction
 		// camera is facing
-		if(playerInteract.CanMove())
+		if(playerInteract.CanMove() && !pauseManager.Paused)
 		{
 			Quaternion yRotation = mouseLook.UpdateRotation();
 			transform.localRotation = originalRotation * yRotation;
