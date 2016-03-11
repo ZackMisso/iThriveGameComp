@@ -8,7 +8,6 @@ public class PlayerInteract : MonoBehaviour {
 	private bool holdingObject = false;
 	private bool examiningObject = false;
 	private bool readingNote = false;
-	private bool highlightedObject = false;
 
 	private Interactable interactionScript;
 	private Holdable holdScript;
@@ -44,25 +43,23 @@ public class PlayerInteract : MonoBehaviour {
 		}
 
 		// unhighlight all objects
-		if (highlightedObject && interactionScript)
+		if (interactionScript)
 		{
 			interactionScript.OnUnHighlight();
 			interactionScript = null;
 		}
 
-		if (highlightedObject && holdScript && !holdingObject)
+		if (holdScript)
 		{
 			holdScript.OnUnHighlight();
-			holdScript = null;
 		}
 
-		if (highlightedObject && noteScript)
+		if (noteScript)
 		{
 			noteScript.OnUnHighlight();
-			noteScript = null;
 		}
 
-		highlightedObject = false;
+
 
 		RaycastHit hit;
 		// Only cast a ray if an object is not being held
@@ -74,7 +71,7 @@ public class PlayerInteract : MonoBehaviour {
 				// we don't have to fetch the interact script everytime...
 				interactionScript = hit.transform.gameObject.GetComponent<Interactable>();
 				interactionScript.Highlighted(highlight);	// Pass the highlight material
-				highlightedObject = true;
+
 
 				// Call OnInteract on left click
 				if (Input.GetMouseButtonDown(0))
@@ -88,7 +85,7 @@ public class PlayerInteract : MonoBehaviour {
 				// we don't have to fetch the interact script everytime...
 				holdScript = hit.transform.gameObject.GetComponent<Holdable>();
 				holdScript.Highlighted(highlight);	// Pass the highlight material
-				highlightedObject = true;
+
 
 				// Call OnInteract on left click
 				if (Input.GetMouseButtonDown(0))
@@ -105,7 +102,7 @@ public class PlayerInteract : MonoBehaviour {
 					noteScript = hit.transform.gameObject.GetComponent<Note>();
 					// Pass the highlight material
 					noteScript.Highlighted(highlight);
-					highlightedObject = true;
+
 
 					// Call OnInteract on left click
 					if (Input.GetMouseButtonDown(0))
@@ -124,6 +121,7 @@ public class PlayerInteract : MonoBehaviour {
 			holdScript.OnThrow();
 			// Set hold state to false
 			holdingObject = false;
+			holdScript = null;
 		}
 
 		// If an item is being held and there is a right mouse click, examin the item

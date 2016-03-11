@@ -78,6 +78,7 @@ public class Holdable : MonoBehaviour, IHoldable {
 	public void OnInteract()
 	{
 		print("Holding " + gameObject.name);
+		OnUnHighlight();
 		transform.SetParent(player.transform);
 		transform.localPosition = holdPosition;
 		rb.isKinematic = true;
