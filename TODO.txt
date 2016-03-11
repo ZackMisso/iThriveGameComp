@@ -5,6 +5,8 @@ Add Sounds
 
 Model Fridge
 
+Model Sink
+
 Finish House
 
 Import Car
