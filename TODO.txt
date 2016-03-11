@@ -3,7 +3,15 @@ Things To Do ::
 Create Interactable Objects for Demo
 Add Sounds
 
-Model Interactable Objects for Demo
+Model Fridge
+
+Model Model Couch
+
+Model TV Stand
+
+Model TV
+
+Import Car
 
 Add Walking Dialougues handling.
 
