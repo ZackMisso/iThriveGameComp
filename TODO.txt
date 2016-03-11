@@ -7,8 +7,6 @@ Model Fridge
 
 Import Car
 
-Add Walking Dialougues handling.
-
 Add Colliders to Scene Objects imported From Maya
 
 Make sure its working on Phoenixs computer
@@ -18,5 +16,3 @@ Paint Terrain
 Ending Screen/Thank you for playing the Demo
 
 Fix Maya Materials
-
-Write Generic Job Acceptance letter
