@@ -5,8 +5,6 @@ Add Sounds
 
 Model Fridge
 
-Finish House
-
 Import Car
 
 Add Walking Dialougues handling.
