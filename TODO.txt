@@ -1,7 +1,5 @@
 Things To Do ::
 
-Incorporate Sound onto On Interact
-
 Create Interactable Objects for Demo
 Add Sounds
 

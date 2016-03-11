@@ -18,6 +18,12 @@ public class Note : MonoBehaviour, INote {
 
 	private Vector3 holdRotation = new Vector3(0.0f, -90.0f, 0.0f);
 
+	// Audio effects and dialogue
+	[SerializeField] private AudioClip clip;
+	[SerializeField] private AudioClip dialogueClip;
+	private GameObject dialogueObject;
+	private AudioSource dialogueSource;
+
 	void Start()
 	{
 		// Set layer and tag to "Note"
@@ -38,6 +44,13 @@ public class Note : MonoBehaviour, INote {
 
 		// Grab the Player object
 		player = GameObject.FindGameObjectWithTag("Player");
+
+		// Audio effects and dialogue
+		if (dialogueClip != null)
+		{
+			dialogueObject = GameObject.Find("Dialogue Source");
+			dialogueSource = dialogueObject.GetComponent<AudioSource>();
+		}
 	}
 
 	public void OnZoom(float z)
@@ -87,6 +100,7 @@ public class Note : MonoBehaviour, INote {
 
 	public void OnExit()
 	{
+		PlayEffect();
 		transform.rotation = originalRotation;
 		transform.position = originalPosition;
 		transform.SetParent(null);
@@ -115,12 +129,33 @@ public class Note : MonoBehaviour, INote {
 	public void OnInteract()
 	{
 		print("Reading " + gameObject.name);
+		PlayAudio();
 		OnUnHighlight();
 		OnView();
 	}
 
-	//void Update()
-	//{
-	//	rend.material = originalMaterial;
-	//}
+	public void PlayAudio()
+	{
+		// Play sound effect
+		if (clip != null)
+		{
+			AudioSource.PlayClipAtPoint(clip, transform.position);
+		}
+
+		if (dialogueClip != null)
+		{
+			dialogueSource.Stop();
+			dialogueSource.clip = dialogueClip;
+			dialogueSource.Play();
+		}
+	}
+
+	public void PlayEffect()
+	{
+		// Play sound effect
+		if (clip != null)
+		{
+			AudioSource.PlayClipAtPoint(clip, transform.position);
+		}
+	}
 }

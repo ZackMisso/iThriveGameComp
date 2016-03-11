@@ -14,6 +14,12 @@ public class Holdable : MonoBehaviour, IHoldable {
 	[SerializeField] private Vector3 examinePosition = new Vector3(0.0f,0.0f,1.0f);
 	private Quaternion holdOrientation;
 
+	// Audio effects and dialogue
+	[SerializeField] private AudioClip clip;
+	[SerializeField] private AudioClip dialogueClip;
+	private GameObject dialogueObject;
+	private AudioSource dialogueSource;
+
 	void Start()
 	{
 		// Set layer and tag to "Holdable"
@@ -29,6 +35,13 @@ public class Holdable : MonoBehaviour, IHoldable {
 		ml = GetComponent<MouseLook>();
 
 		player = GameObject.FindGameObjectWithTag("Player");
+
+		// Audio effects and dialogue
+		if (dialogueClip != null)
+		{
+			dialogueObject = GameObject.Find("Dialogue Source");
+			dialogueSource = dialogueObject.GetComponent<AudioSource>();
+		}
 	}
 
 	public void OnExamineRotate()
@@ -78,9 +91,26 @@ public class Holdable : MonoBehaviour, IHoldable {
 	public void OnInteract()
 	{
 		print("Holding " + gameObject.name);
+		PlayAudio();
 		OnUnHighlight();
 		transform.SetParent(player.transform);
 		transform.localPosition = holdPosition;
 		rb.isKinematic = true;
+	}
+
+	public void PlayAudio()
+	{
+		// Play sound effect
+		if (clip != null)
+		{
+			AudioSource.PlayClipAtPoint(clip, transform.position);
+		}
+
+		if (dialogueClip != null)
+		{
+			dialogueSource.Stop();
+			dialogueSource.clip = dialogueClip;
+			dialogueSource.Play();
+		}
 	}
 }

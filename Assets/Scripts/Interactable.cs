@@ -6,10 +6,23 @@ public class Interactable : MonoBehaviour, IInteractable {
 	private Renderer rend;
 	private Material originalMaterial;
 
+	// Audio effects and dialogue
+	[SerializeField] private AudioClip clip;
+	[SerializeField] private AudioClip dialogueClip;
+	private GameObject dialogueObject;
+	private AudioSource dialogueSource;
+
 	void Start()
 	{
 		rend = GetComponent<Renderer>();
 		originalMaterial = rend.material;
+
+		// Audio effects and dialogue
+		if (dialogueClip != null)
+		{
+			dialogueObject = GameObject.Find("Dialogue Source");
+			dialogueSource = dialogueObject.GetComponent<AudioSource>();
+		}
 	}
 
 	public void Highlighted(Material highlight) 
@@ -29,10 +42,22 @@ public class Interactable : MonoBehaviour, IInteractable {
 	public void OnInteract() 
 	{
 		print("Interacting with " + gameObject.name);
+		PlayAudio();
 	}
 
-	void Update() 
+	public void PlayAudio()
 	{
-//		rend.material = originalMaterial;
+		// Play sound effect
+		if (clip != null)
+		{
+			AudioSource.PlayClipAtPoint(clip, transform.position);
+		}
+
+		if (dialogueClip != null)
+		{
+			dialogueSource.Stop();
+			dialogueSource.clip = dialogueClip;
+			dialogueSource.Play();
+		}
 	}
 }
