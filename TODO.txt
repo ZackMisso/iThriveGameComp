@@ -27,8 +27,6 @@ Make sure its working on Phoenixs computer
 
 Paint Terrain
 
-Player's footsteps
-
 Ending Screen/Thank you for playing the Demo
 
 Fix Maya Materials
