@@ -1,6 +1,6 @@
 //Maya ASCII 2016 scene
 //Name: FullHouse.ma
-//Last modified: Fri, Mar 11, 2016 04:08:26 AM
+//Last modified: Fri, Mar 11, 2016 04:22:06 AM
 //Codeset: 1252
 requires maya "2016";
 requires "stereoCamera" "10.0";
@@ -14,8 +14,8 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "DD3C1570-4E4D-A669-A781-D1B2948AA9F4";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 11.177839134637857 4.4684086860056942 -10.137472414296854 ;
-	setAttr ".r" -type "double3" 705.86164718385407 838.99999999993236 0 ;
+	setAttr ".t" -type "double3" 8.5550981457436777 2.8115031546595253 -13.897959518970252 ;
+	setAttr ".r" -type "double3" 711.26164718385269 869.79999999992651 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "E79E55E3-3B48-FB8A-7094-8AAD20BC0E84";
 	setAttr -k off ".v" no;
