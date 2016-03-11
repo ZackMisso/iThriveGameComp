@@ -8,6 +8,15 @@ public class PlayerInteract : MonoBehaviour {
 	private bool holdingObject = false;
 	private bool examiningObject = false;
 	private bool readingNote = false;
+	private bool waiting = false;
+
+	public bool Waiting
+	{
+		set
+		{
+			waiting = value;
+		}
+	}
 
 	private Interactable interactionScript;
 	private Holdable holdScript;
@@ -15,7 +24,7 @@ public class PlayerInteract : MonoBehaviour {
 
 	public bool CanMove()
 	{
-		return !examiningObject && !readingNote;
+		return !examiningObject && !readingNote && !waiting;
 	}
 
 	public void Update()
