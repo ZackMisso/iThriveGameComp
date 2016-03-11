@@ -112,6 +112,7 @@ ModelImporter:
     100208: transform9
     100210: TV:pCube4
     100212: TVStand:pCube3
+    100214: Fridge:pCube1
     400000: Couch:pCube5
     400002: Couch:pCube6
     400004: Couch:pCube7
@@ -219,6 +220,7 @@ ModelImporter:
     400208: transform9
     400210: TV:pCube4
     400212: TVStand:pCube3
+    400214: Fridge:pCube1
     2300000: Couch:pCube7
     2300002: pCube19
     2300004: pCube2
@@ -235,6 +237,7 @@ ModelImporter:
     2300026: Table:pCube1
     2300028: TV:pCube4
     2300030: TVStand:pCube3
+    2300032: Fridge:pCube1
     3300000: Couch:pCube7
     3300002: pCube19
     3300004: pCube2
@@ -251,6 +254,7 @@ ModelImporter:
     3300026: Table:pCube1
     3300028: TV:pCube4
     3300030: TVStand:pCube3
+    3300032: Fridge:pCube1
     4300000: pCube19
     4300002: pCube20
     4300004: pSphere3
@@ -267,6 +271,7 @@ ModelImporter:
     4300026: pCube25
     4300028: Sink:pCube1
     4300030: PictureFrame:pCube19
+    4300032: Fridge:pCube1
     9500000: //RootNode
   materials:
     importMaterials: 1

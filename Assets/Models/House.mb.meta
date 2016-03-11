@@ -109,6 +109,7 @@ ModelImporter:
     4300002: pCube20
     4300004: pSphere3
     4300006: pCube21
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
