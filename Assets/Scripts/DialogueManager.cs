@@ -11,6 +11,8 @@ public class DialogueManager : MonoBehaviour {
 	[SerializeField] private AudioClip clip3;
 	[SerializeField] private AudioClip clip4;
 
+	[SerializeField] private AudioClip clip5;
+
 	private LevelManager levelManager;
 	private AudioSource dialogueSource;
 
@@ -18,9 +20,13 @@ public class DialogueManager : MonoBehaviour {
 
 	private PlayerInteract interactScript;
 
+	private bool demoEnded = false;
+
 	// Use this for initialization
 	void Start () 
 	{
+		levelManager = GameObject.FindObjectOfType<LevelManager>();
+
 		dialogueObject = GameObject.Find("Dialogue Source");
 		dialogueSource = dialogueObject.GetComponent<AudioSource>();
 
@@ -61,5 +67,29 @@ public class DialogueManager : MonoBehaviour {
 		yield return new WaitForSeconds(clip4.length);
 
 		interactScript.Waiting = false;
+	}
+
+	IEnumerator DemoOver()
+	{
+		AudioSource.PlayClipAtPoint(phoneDial, transform.position);
+		yield return new WaitForSeconds(phoneDial.length);
+
+		dialogueSource.clip = clip5;
+		dialogueSource.Play();
+		yield return new WaitForSeconds(clip5.length);
+
+		levelManager.LoadLevelWithFade("DemoEnd");
+	}
+
+	void Update()
+	{
+		// Add bools to each of these interactable objects to check that they have
+		// been examined
+//		if (!demoEnded)// && letterExam && TVExam && refrigeratorExam && noteExam && pictureExam)
+//		{
+//			demoEnded = true;
+//			interactScript.Waiting = true;
+//			StartCoroutine(DemoOver());
+//		}
 	}
 }
