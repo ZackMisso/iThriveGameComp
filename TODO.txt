@@ -1,0 +1,26 @@
+Things To Do ::
+
+Incorporate Sound onto On Interact
+
+Create Interactable Objects for Demo
+Add Sounds
+
+Model Interactable Objects for Demo
+
+Add Walking Dialougues handling.
+
+Add Colliders to Scene Objects imported From Maya
+
+Make sure its working on Phoenixs computer
+
+Paint Terrain
+
+Player's footsteps
+
+Ending Screen/Thank you for playing the Demo
+
+Fix Maya Materials
+
+Write Generic Job Acceptance letter
+
+Add fade on Intro Menu
