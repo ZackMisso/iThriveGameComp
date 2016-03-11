@@ -24,5 +24,3 @@ Ending Screen/Thank you for playing the Demo
 Fix Maya Materials
 
 Write Generic Job Acceptance letter
-
-Add fade on Intro Menu
