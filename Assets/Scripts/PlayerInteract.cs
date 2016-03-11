@@ -50,7 +50,7 @@ public class PlayerInteract : MonoBehaviour {
 			interactionScript = null;
 		}
 
-		if (highlightedObject && holdScript)
+		if (highlightedObject && holdScript && !holdingObject)
 		{
 			holdScript.OnUnHighlight();
 			holdScript = null;
