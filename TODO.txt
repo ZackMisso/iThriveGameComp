@@ -7,10 +7,6 @@ Add Sounds
 
 Model Fridge
 
-Model Table
-
-Model Chair
-
 Model Model Couch
 
 Model TV Stand
