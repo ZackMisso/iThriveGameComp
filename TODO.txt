@@ -9,8 +9,6 @@ Model Fridge
 
 Model Model Couch
 
-Model TV Stand
-
 Model TV
 
 Import Car
