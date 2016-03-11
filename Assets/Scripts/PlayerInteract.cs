@@ -13,16 +13,9 @@ public class PlayerInteract : MonoBehaviour {
 	private Holdable holdScript;
 	private Note noteScript;
 
-	private MouseLook mouseLookScript;
-
-	public void Start()
-	{
-		mouseLookScript = GetComponent<MouseLook>();
-	}
-
 	public bool CanMove()
 	{
-		return !examiningObject;
+		return !examiningObject && !readingNote;
 	}
 
 	public void Update()
@@ -103,7 +96,6 @@ public class PlayerInteract : MonoBehaviour {
 					// Pass the highlight material
 					noteScript.Highlighted(highlight);
 
-
 					// Call OnInteract on left click
 					if (Input.GetMouseButtonDown(0))
 					{
@@ -131,6 +123,14 @@ public class PlayerInteract : MonoBehaviour {
 			holdScript.OnExamine();
 			// Set examine state to true
 			examiningObject = true;
+		}
+
+		else if (readingNote && Input.GetMouseButtonDown(0))
+		{
+			noteScript.OnExit();
+
+			readingNote = false;
+			noteScript = null;
 		}
 
 		// Capture Movement if reading note

@@ -10,9 +10,13 @@ public class Note : MonoBehaviour, INote {
 
 	private MouseLook ml;
 	private Vector3 originalPosition;
+	private Quaternion originalRotation;
+
 	[SerializeField] private Vector3 examinePosition = new Vector3(0.0f,0.0f,0.5f);
 	[SerializeField] private Vector3 maxExaminePosition = new Vector3(1.0f,1.0f,1.0f);
 	[SerializeField] private Vector3 minExaminePosition = new Vector3(-1.0f,-1.0f,0.2f);
+
+	private Vector3 holdRotation = new Vector3(0.0f, -90.0f, 0.0f);
 
 	void Start()
 	{
@@ -26,6 +30,8 @@ public class Note : MonoBehaviour, INote {
 
 		// Grab the original position of the object
 		originalPosition = transform.position;
+		// Grab original rotation of object
+		originalRotation = transform.localRotation;
 
 		// Grab the Mouse Look for when the object is being examined
 		ml = GetComponent<MouseLook>();
@@ -51,36 +57,37 @@ public class Note : MonoBehaviour, INote {
 
 	public void OnShiftX(float x)
 	{
-		Vector3 currentPos = transform.localPosition;
-		currentPos.x += x;
-		if(currentPos.x > maxExaminePosition.x)
-		{
-			currentPos.x = maxExaminePosition.x;
-		}
-		if(currentPos.x < minExaminePosition.x)
-		{
-			currentPos.x = minExaminePosition.x;
-		}
-		transform.localPosition = currentPos;
+//		Vector3 currentPos = transform.localPosition;
+//		currentPos.x += x;
+//		if(currentPos.x > maxExaminePosition.x)
+//		{
+//			currentPos.x = maxExaminePosition.x;
+//		}
+//		if(currentPos.x < minExaminePosition.x)
+//		{
+//			currentPos.x = minExaminePosition.x;
+//		}
+//		transform.localPosition = currentPos;
 	}
-
+//
 	public void OnShiftY(float y)
 	{
-		Vector3 currentPos = transform.localPosition;
-		currentPos.y += y;
-		if(currentPos.y > maxExaminePosition.y)
-		{
-			currentPos.y = maxExaminePosition.y;
-		}
-		if(currentPos.y < minExaminePosition.y)
-		{
-			currentPos.y = minExaminePosition.y;
-		}
-		transform.localPosition = currentPos;
+//		Vector3 currentPos = transform.localPosition;
+//		currentPos.y += y;
+//		if(currentPos.y > maxExaminePosition.y)
+//		{
+//			currentPos.y = maxExaminePosition.y;
+//		}
+//		if(currentPos.y < minExaminePosition.y)
+//		{
+//			currentPos.y = minExaminePosition.y;
+//		}
+//		transform.localPosition = currentPos;
 	}
 
 	public void OnExit()
 	{
+		transform.rotation = originalRotation;
 		transform.position = originalPosition;
 		transform.SetParent(null);
 	}
@@ -89,6 +96,7 @@ public class Note : MonoBehaviour, INote {
 	{
 		transform.SetParent(player.transform);
 		transform.localPosition = examinePosition;
+		transform.localRotation = Quaternion.Euler(holdRotation);
 	}
 
 	public void Highlighted(Material highlight)
@@ -107,6 +115,7 @@ public class Note : MonoBehaviour, INote {
 	public void OnInteract()
 	{
 		print("Reading " + gameObject.name);
+		OnUnHighlight();
 		OnView();
 	}
 
