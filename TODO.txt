@@ -7,8 +7,6 @@ Model Fridge
 
 Model Model Couch
 
-Model TV
-
 Import Car
 
 Add Walking Dialougues handling.
