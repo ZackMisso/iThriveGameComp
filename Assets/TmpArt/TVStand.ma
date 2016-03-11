@@ -1,6 +1,6 @@
 //Maya ASCII 2016 scene
 //Name: TVStand.ma
-//Last modified: Fri, Mar 11, 2016 01:13:19 AM
+//Last modified: Fri, Mar 11, 2016 01:26:49 AM
 //Codeset: 1252
 requires maya "2016";
 currentUnit -l centimeter -a degree -t film;
@@ -13,13 +13,13 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "CA108D91-4F65-FDFB-8A4E-9CBE9EEB5ABF";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -0.18799182480648197 -1.7343582510799984 3.5355908229641702 ;
-	setAttr ".r" -type "double3" -206.13835272295862 -182.19999999855852 0 ;
+	setAttr ".t" -type "double3" -1.0226392560523743 -1.1950284206599746 3.6184923058121381 ;
+	setAttr ".r" -type "double3" -197.13835272295566 -195.79999999855426 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "9BE0EB24-457D-8285-31F8-638F1023100A";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 3.6975818927599797;
+	setAttr ".coi" 3.6975818927599748;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
