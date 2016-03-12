@@ -33,7 +33,10 @@ public class CarDialogue : MonoBehaviour {
 	{
 		dialogueSource.clip = clip1;
 		dialogueSource.Play();
-		yield return new WaitForSeconds(10.0f);
+		yield return new WaitForSeconds(clip1.length);
+
+		dialogueSource.clip = clip2;
+		dialogueSource.Play();
 
 		AudioSource.PlayClipAtPoint(carStop, transform.position);
 		yield return new WaitForSeconds(carStop.length - 10.0f);
@@ -48,7 +51,7 @@ public class CarDialogue : MonoBehaviour {
 		yield return new WaitForSeconds(openDoor.length + 1.0f);
 		AudioSource.PlayClipAtPoint(closeDoor, transform.position);
 
-		yield return new WaitForSeconds(5.0f);
+		yield return new WaitForSeconds(2.0f);
 		levelManager.LoadLevel(level);
 	}
 }

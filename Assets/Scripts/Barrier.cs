@@ -9,7 +9,8 @@ public class Barrier : MonoBehaviour {
 
 	void Start()
 	{
-		timeSinceAudioLastPlayed = clip.length + audioCoolDown;
+		if (clip != null)
+			timeSinceAudioLastPlayed = clip.length + audioCoolDown;
 	}
 
 	// Update is called once per frame
@@ -21,7 +22,7 @@ public class Barrier : MonoBehaviour {
 
 	void OnTriggerStay(Collider collision)
 	{
-		if (timeSinceAudioLastPlayed > (clip.length + audioCoolDown))
+		if (clip != null && timeSinceAudioLastPlayed > (clip.length + audioCoolDown))
 		{
 			print("Playing sound");
 			AudioSource.PlayClipAtPoint(clip, transform.position);
