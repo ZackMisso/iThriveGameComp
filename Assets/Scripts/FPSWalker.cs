@@ -21,7 +21,7 @@ public class FPSWalker : MonoBehaviour {
 
 	public void Start()
 	{
-		audioSource = GameObject.FindObjectOfType<AudioSource>();
+		audioSource = GetComponent<AudioSource>();
 		characterController = GetComponent<CharacterController>();
 		mouseLook = GetComponentInChildren<MouseLook>();
 		playerInteract = GetComponentInChildren<PlayerInteract>();
