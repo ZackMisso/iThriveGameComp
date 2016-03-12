@@ -67,6 +67,7 @@ public class PlayerInteract : MonoBehaviour {
 		// Only cast a ray if an object is not being held
 		if (!readingNote && !holdingObject && Physics.Raycast(transform.position, forw, out hit, interactDist))
 		{
+			Debug.DrawRay(transform.position, forw * interactDist);
 			if (hit.collider.tag == "Interactable")
 			{
 				// Think about caching the hit gameObject and the script so
