@@ -3,6 +3,18 @@ using System.Collections;
 
 public class FPSWalker : MonoBehaviour {
 	[SerializeField] private float speed = 2.0f;
+	public float Speed
+	{
+		get
+		{
+			return speed;
+		}
+		set
+		{
+			speed = value;
+		}
+	}
+
 	[SerializeField] private float stickToGroundForce = 10.0f; // Prevents player from falling through ground
 
 	private AudioSource audioSource;
@@ -53,7 +65,7 @@ public class FPSWalker : MonoBehaviour {
 			bool playerMoved = Mathf.Abs(Input.GetAxis("Horizontal")) > 0.0f
 				|| Mathf.Abs(Input.GetAxis("Vertical")) > 0.0f;
 
-			if (timeSinceLastStep >= stepDelay && playerMoved)
+			if (timeSinceLastStep >= stepDelay && playerMoved && speed > 0.0f)
 			{
 				if (secondStep)
 				{
